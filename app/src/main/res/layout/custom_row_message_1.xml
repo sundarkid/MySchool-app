@@ -5,11 +5,12 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_8dp"
     android:orientation="vertical"
-    app:cardCornerRadius="8dp">
+    app:cardCornerRadius="@dimen/_4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_2dp"
         android:alpha="12"
         android:background="@color/primary_material_light"
         android:orientation="vertical"
@@ -57,6 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
+                android:maxLines="1"
                 android:text="@string/time"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 

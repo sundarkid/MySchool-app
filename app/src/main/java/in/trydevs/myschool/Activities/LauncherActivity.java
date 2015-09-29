@@ -1,10 +1,8 @@
 package in.trydevs.myschool.Activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
 
 import in.trydevs.myschool.R;
 
@@ -22,11 +20,15 @@ public class LauncherActivity extends AppCompatActivity {
                     Thread.sleep(3000,0);
                     Intent intent = new Intent(LauncherActivity.this,MainActivity.class);
                     startActivity(intent);
+                    finish();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        }).start();
+        });
+
+
+
     }
 
 

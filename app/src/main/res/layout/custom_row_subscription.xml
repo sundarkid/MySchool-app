@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/standard_text_view_height"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/_8dp"
+    android:paddingRight="@dimen/_8dp">
+
+    <TextView
+        android:id="@+id/textViewSubscription"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:maxLines="2"
+        android:text="@string/signupSuccessMessageWithoutNewLine"
+        android:textSize="@dimen/primary_text" />
+
+</LinearLayout>

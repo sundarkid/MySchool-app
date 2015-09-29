@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide;
 
 import in.trydevs.myschool.DataClasses.Post;
 import in.trydevs.myschool.R;
-import in.trydevs.myschool.extras.TextViewSpannable;
 
 
 public class DetailedPost extends AppCompatActivity {
@@ -36,7 +35,7 @@ public class DetailedPost extends AppCompatActivity {
             if (!post.getImage().equalsIgnoreCase(""))
                 Glide.with(this)
                         .load(post.getImage())
-                        .crossFade()
+                        .centerCrop()
                         .into(image);
             else
                 image.setImageDrawable(null);

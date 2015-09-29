@@ -79,6 +79,8 @@ public class RegistrationIntentService extends IntentService {
                 if (!sentToken)
                     sendRegistrationToServer(token);
 
+                // TODO GET data from sharedpreference and assign it to TOPICS[0]
+
                 // Subscribe to topic channels
                 subscribeTopics(token);
 

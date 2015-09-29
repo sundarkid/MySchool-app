@@ -40,7 +40,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_POSTS = "CREATE TABLE " + TABLE_POST + " ( " +
             COLUMN_SNO + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_USER_ID + " INTEGER, " +
-            COLUMN_POST_ID + " INTEGER, " +
+            COLUMN_POST_ID + " INTEGER UNIQUE, " +
             COLUMN_NAME + " TEXT, " +
             COLUMN_TITLE + " TEXT, " +
             COLUMN_MESSAGE + " TEXT, " +

@@ -70,6 +70,21 @@ public class Post implements Parcelable {
         return post;
     }
 
+    public JSONObject getJsonObject() {
+        JSONObject object = new JSONObject();
+        try {
+            object.put(UrlLinkNames.getJsonSno(), getSno());
+            object.put(UrlLinkNames.getJsonTitle(), getTitle());
+            object.put(UrlLinkNames.getJsonMessage(), getMessage());
+            object.put(UrlLinkNames.getJsonImage(), getImage());
+            object.put(UrlLinkNames.getJsonName(), getName());
+            object.put(UrlLinkNames.getJsonDate(), getDate());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return object;
+    }
+
     public long getSno() {
         return sno;
     }

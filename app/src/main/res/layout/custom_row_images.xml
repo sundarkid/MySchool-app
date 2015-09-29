@@ -12,5 +12,6 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:alpha="50"
-        android:clickable="true" />
+        android:clickable="true"
+        android:contentDescription="Image" />
 </android.support.v7.widget.CardView>

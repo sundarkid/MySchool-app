@@ -24,8 +24,9 @@ public class UrlLinkNames {
     public static String JSON_ABOUT = "url_about";
     public static String JSON_SNO = "sno";
 
-    public static String URL_BASE = "http://myschool.askyourfriend.in/";
+    public static String URL_BASE = "http://myschool.askyourfriend.in/app/";
     public static String URL_GCM_REGISTER = "gcm_register.php";
+    public static String URL_GCM_TOKENS = "subscriptions.php";
 
     public static String getUrlBase() {
         return URL_BASE;
@@ -37,6 +38,10 @@ public class UrlLinkNames {
 
     public static String getUrlGcmRegister() {
         return getUrlBase() + URL_GCM_REGISTER;
+    }
+
+    public static String getUrlGcmTokens() {
+        return getUrlBase() + URL_GCM_TOKENS;
     }
 
     public static String getJsonDate() {

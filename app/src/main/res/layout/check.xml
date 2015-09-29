@@ -2,42 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="88dp"
+    android:gravity="center"
     android:orientation="horizontal">  <!-- standard size for tiles -->
-    <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/outletImage"
-        android:padding="@dimen/_8dp"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/twitter_icon"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="8dp" />
-
-    <LinearLayout
+    <View
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="20dp"
+        android:layout_height="2dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:background="@color/primary_text_color" />
 
-        <TextView
-            android:id="@+id/outletName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sample"
-            android:textColor="@color/primary_text_color"
-            android:textSize="16dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="@dimen/_4dp"
+        android:text="Or" />
 
-        <TextView
-            android:id="@+id/outletLocation"
-            android:maxLines="2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/signupSuccessMessageWithoutNewLine"
-            android:textColor="@color/primary_text_color"
-            android:textSize="14sp" />
-    </LinearLayout>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_weight="1"
+        android:background="@color/primary_text_color" />
 </LinearLayout>

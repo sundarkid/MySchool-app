@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
@@ -50,8 +49,7 @@ public class MyAdapterPeople extends RecyclerView.Adapter<MyAdapterPeople.MyHold
         if (!current.getImage().equalsIgnoreCase(""))
             Glide.with(context)
                     .load(current.getImage())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .crossFade()
+                    .centerCrop()
                     .into(holder.photo);
         if (!current.getFacebook().equalsIgnoreCase(""))
             holder.fb.setOnClickListener(new View.OnClickListener() {

@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -121,7 +123,7 @@ public class DBMySchool {
     }
     public List<Post> getPostData() {
         List<Post> posts;
-        Cursor cursor = database.query(getTableName(TABLE_POSTS),null,null,null,null,null, MySQLiteHelper.COLUMN_SNO + " DESC ");
+        Cursor cursor = database.query(getTableName(TABLE_POSTS), null, null, null, null, null, MySQLiteHelper.COLUMN_POST_ID + " DESC ");
         if (cursor != null && cursor.moveToFirst()){
             // Creating indices for the table attributes
             posts = new ArrayList<>();
@@ -152,6 +154,12 @@ public class DBMySchool {
         }
         else
             posts = Collections.emptyList();
+        // check
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < posts.size(); i++) {
+            jsonArray.put(posts.get(i).getJsonObject());
+        }
+        //Log.d("Post Data table",jsonArray.toString());
         return posts;
     }
 

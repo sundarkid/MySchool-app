@@ -1,6 +1,5 @@
 package in.trydevs.myschool.Adapters;
 
-import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,14 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.Collections;
 import java.util.List;
 
 import in.trydevs.myschool.DataClasses.Image;
 import in.trydevs.myschool.R;
-import in.trydevs.myschool.extras.BlurImageView;
 
 
 /**
@@ -27,6 +24,7 @@ public class MyAdapterImages extends RecyclerView.Adapter<MyAdapterImages.MyHold
     List<Image> data;
     FragmentActivity context;
     LayoutInflater inflater;
+
     public MyAdapterImages(FragmentActivity context, List<Image> images) {
         if (images.size() > 0)
             this.data = images;
@@ -38,19 +36,17 @@ public class MyAdapterImages extends RecyclerView.Adapter<MyAdapterImages.MyHold
 
     @Override
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.custom_post_images,parent,false);
+        View view = inflater.inflate(R.layout.custom_row_images, parent, false);
         return (new MyHolder(view));
     }
 
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
         Image image = data.get(position);
-        if (!image.getLink().equalsIgnoreCase("")){
+        if (!image.getLink().equalsIgnoreCase("")) {
             Glide.with(context)
                     .load(image.getLink())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.mipmap.ic_launcher)
-                    .crossFade()
                     .into(holder.imageView);
         }
     }
