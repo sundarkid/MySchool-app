@@ -84,5 +84,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_launcher">My School</string>
     <string name="selectSubscription">Select to subscribe.</string>
+    <string name="school_name">School Name</string>
+    <string name="loading_list">Loading List...\nPlease Wait...</string>
 
 </resources>

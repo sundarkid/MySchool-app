@@ -4,29 +4,38 @@ package in.trydevs.myschool.DataClasses;
  * Created by Sundareswaran on 28-07-2015.
  */
 public class UrlLinkNames {
-    public static String JSON_USER_ID = "user_id";
-    public static String JSON_POST_ID = "post_id";
-    public static String JSON_MESSAGE = "message";
-    public static String JSON_DATE = "date";
-    public static String JSON_IMAGE = "image";
-    public static String JSON_NAME = "name";
-    public static String JSON_TITLE = "title";
-    public static String JSON_URL = "url";
-    public static String JSON_RESULT = "result";
-    public static String JSON_SUCCESS = "success";
-    public static String JSON_FAILURE = "failure";
+    private static String JSON_USER_ID = "user_id";
+    private static String JSON_POST_ID = "post_id";
+    private static String JSON_MESSAGE = "message";
+    private static String JSON_DATE = "date";
+    private static String JSON_IMAGE = "image";
+    private static String JSON_NAME = "name";
+    private static String JSON_TITLE = "title";
+    private static String JSON_URL = "url";
 
-    public static String JSON_POST = "post";
-    public static String JSON_PEOPLE = "people";
+    private static String JSON_POST = "post";
+    private static String JSON_PEOPLE = "people";
 
-    public static String JSON_FACEBOOK_URL = "url_fb";
-    public static String JSON_TWITTER_URL = "url_tweet";
-    public static String JSON_ABOUT = "url_about";
-    public static String JSON_SNO = "sno";
 
-    public static String URL_BASE = "http://myschool.askyourfriend.in/app/";
-    public static String URL_GCM_REGISTER = "gcm_register.php";
-    public static String URL_GCM_TOKENS = "subscriptions.php";
+    private static String JSON_FACEBOOK_URL = "url_fb";
+    private static String JSON_TWITTER_URL = "url_tweet";
+    private static String JSON_ABOUT = "url_about";
+    private static String JSON_SNO = "sno";
+
+    private static String URL_GCM_TOKENS = "subscriptions.php";
+
+    // Start of new Design
+    private static String URL_BASE = "http://192.168.1.100/myschool/api/v1/app/";
+    private static String URL_SUBSCRIPTIONS = "getSubscriptionList";
+    private static String URL_GCM_REGISTER = "gcmRegister";
+
+    private static String JSON_TOKEN = "token";
+    private static String JSON_SCHOOLID = "schoolId";
+    private static String JSON_RESULT = "result";
+    private static String JSON_SUCCESS = "success";
+    private static String JSON_FAILURE = "failure";
+
+    private static String SHARED_PREFERENCES_SCHOOL_TOKEN = "school_token";
 
     public static String getUrlBase() {
         return URL_BASE;
@@ -36,12 +45,28 @@ public class UrlLinkNames {
         return JSON_SNO;
     }
 
+    public static String getJsonToken() {
+        return JSON_TOKEN;
+    }
+
+    public static String getJsonSchoolid() {
+        return JSON_SCHOOLID;
+    }
+
+    public static String getSharedPreferencesSchoolToken() {
+        return SHARED_PREFERENCES_SCHOOL_TOKEN;
+    }
+
     public static String getUrlGcmRegister() {
         return getUrlBase() + URL_GCM_REGISTER;
     }
 
     public static String getUrlGcmTokens() {
         return getUrlBase() + URL_GCM_TOKENS;
+    }
+
+    public static String getUrlSubscriptions() {
+        return getUrlBase() + URL_SUBSCRIPTIONS;
     }
 
     public static String getJsonDate() {

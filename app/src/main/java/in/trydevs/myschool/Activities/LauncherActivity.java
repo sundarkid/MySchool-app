@@ -18,14 +18,14 @@ public class LauncherActivity extends AppCompatActivity {
             public void run() {
                 try {
                     Thread.sleep(3000,0);
-                    Intent intent = new Intent(LauncherActivity.this,MainActivity.class);
+                    Intent intent = new Intent(LauncherActivity.this, SubscriptionActivity.class);
                     startActivity(intent);
                     finish();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        });
+        }).start();
 
 
 

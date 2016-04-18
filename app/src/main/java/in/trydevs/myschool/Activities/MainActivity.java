@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, RegistrationIntentService.class);
             startService(intent);
         }
+
     }
 
     @Override
@@ -138,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //no inspection Simplifiable If Statement
         if (id == R.id.action_people_info) {
             Intent intentPeople = new Intent(MainActivity.this, PeopleActivity.class);
             startActivity(intentPeople);

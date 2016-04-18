@@ -17,9 +17,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.MainActivity"
-            android:label="@string/app_name">
-
-        </activity>
+            android:label="@string/app_name"></activity>
 
         <!-- [START gcm_receiver] -->
         <receiver
@@ -85,6 +83,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activities.SubscriptionActivity"></activity>
     </application>
 
 </manifest>

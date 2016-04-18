@@ -13,12 +13,51 @@ import java.util.List;
 import in.trydevs.myschool.DataClasses.Image;
 import in.trydevs.myschool.DataClasses.People;
 import in.trydevs.myschool.DataClasses.Post;
+import in.trydevs.myschool.DataClasses.Subscription;
 import in.trydevs.myschool.DataClasses.UrlLinkNames;
 
 /**
  * Created by Sundareswaran on 30-08-2015.
  */
 public class Decoder {
+
+    public static List<Subscription> decodeSubscription(JSONObject json) {
+        List<Subscription> data = Collections.emptyList();
+
+        try {
+            if (json.has(UrlLinkNames.getJsonResult())) {
+                if (json.getString(UrlLinkNames.getJsonResult()).equalsIgnoreCase(UrlLinkNames.getJsonSuccess())) {
+
+                    JSONArray array = json.getJSONArray("list");
+
+                    if (array.length() > 0)
+                        data = new ArrayList<>();
+
+                    for (int i = 0; i < array.length(); i++) {
+
+                        JSONObject child = array.getJSONObject(i);
+                        Subscription subscription = new Subscription();
+
+                        subscription.setName(child.getString(UrlLinkNames.getJsonName()));
+                        subscription.setToken(child.getString(UrlLinkNames.getJsonToken()));
+                        subscription.setSchoolId(UrlLinkNames.getJsonSchoolid());
+
+                        data.add(subscription);
+                    }
+                } else {
+                    Log.d("Decode Sub result", json.toString());
+                }
+            } else {
+                Log.d("Decode sub no result", json.toString());
+            }
+        } catch (JSONException e) {
+            Log.d("decode subscription", json.toString());
+            e.printStackTrace();
+        }
+
+        return data;
+    }
+
     public static List<Post> decodePost(String json) {
         List<Post> posts = Collections.emptyList();
         try {
@@ -35,7 +74,7 @@ public class Decoder {
                 }
             }
         } catch (JSONException e) {
-            Log.d("decode post",json);
+            Log.d("decode post", json);
             e.printStackTrace();
         }
         MyApplication.getWritableDatabase().insertPostData(posts);
@@ -59,7 +98,7 @@ public class Decoder {
                 MyApplication.getWritableDatabase().insertPeopleData(peoples);
             }
         } catch (JSONException e) {
-            Log.d("decoder people",json);
+            Log.d("decoder people", json);
             e.printStackTrace();
         }
         return peoples;
@@ -80,7 +119,7 @@ public class Decoder {
                 MyApplication.getWritableDatabase().insertImageData(images);
             }
         } catch (JSONException e) {
-            Log.d("Decoder images",json);
+            Log.d("Decoder images", json);
             e.printStackTrace();
         }
         return images;

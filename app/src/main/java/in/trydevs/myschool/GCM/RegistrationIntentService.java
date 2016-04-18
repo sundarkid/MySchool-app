@@ -50,7 +50,7 @@ import static com.android.volley.Request.Method.POST;
 public class RegistrationIntentService extends IntentService {
 
     private static final String TAG = "RegIntentService";
-    private static final String[] TOPICS = {"myschool"};
+    private final String[] TOPICS = {""};
     SharedPreferences sharedPreferences;
 
     public RegistrationIntentService() {
@@ -74,20 +74,22 @@ public class RegistrationIntentService extends IntentService {
                         GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
                 // [END get_token]
                 Log.i(TAG, "GCM Registration Token: " + token);
-                boolean sentToken = sharedPreferences
-                        .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
-                if (!sentToken)
-                    sendRegistrationToServer(token);
+                // TODO GET data from shared preference and assign it to TOPICS[0]
+                TOPICS[0] = sharedPreferences.getString(UrlLinkNames.getSharedPreferencesSchoolToken(), "");
+                if (!TOPICS[0].equalsIgnoreCase("")) {
+                    boolean sentToken = sharedPreferences
+                            .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
+                    if (!sentToken)
+                        sendRegistrationToServer(token);
 
-                // TODO GET data from sharedpreference and assign it to TOPICS[0]
+                    // Subscribe to topic channels
+                    subscribeTopics(token);
 
-                // Subscribe to topic channels
-                subscribeTopics(token);
-
-                // You should store a boolean that indicates whether the generated token has been
-                // sent to your server. If the boolean is false, send the token to your server,
-                // otherwise your server should have already received the token.
-                // [END register_for_gcm]
+                    // You should store a boolean that indicates whether the generated token has been
+                    // sent to your server. If the boolean is false, send the token to your server,
+                    // otherwise your server should have already received the token.
+                    // [END register_for_gcm]
+                }
             }
         } catch (Exception e) {
             Log.d(TAG, "Failed to complete token refresh", e);
@@ -143,6 +145,8 @@ public class RegistrationIntentService extends IntentService {
                         MyApplication.getWritableDatabase().insertPostData(posts);
                     }
                     */
+
+
                     Decoder.decodePost(response.toString());
                     Decoder.decodePeople(response.toString());
                     Decoder.decodeImage(response.toString());
@@ -178,7 +182,7 @@ public class RegistrationIntentService extends IntentService {
     private void subscribeTopics(String token) throws IOException {
         for (String topic : TOPICS) {
             GcmPubSub pubSub = GcmPubSub.getInstance(this);
-            pubSub.subscribe(token, "/topics/" + topic, null);
+            pubSub.subscribe(token, "/topic/" + topic, null);
         }
     }
     // [END subscribe_topics]

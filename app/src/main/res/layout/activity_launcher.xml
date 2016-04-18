@@ -9,17 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="in.trydevs.myschool.Activities.LauncherActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/selectSubscription"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewSubscription"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent" />
 
 
 </LinearLayout>
