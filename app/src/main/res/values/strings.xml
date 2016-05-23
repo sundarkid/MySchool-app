@@ -40,7 +40,8 @@
     <string name="forgot_password_error">Something went wrong please try again.</string>
 
     <string name="gcm_defaultSenderId">148649467549</string>
-    <string name="gcm_registeration_success">Your device has been registered to our service successfully.</string>
+    <string name="gcm_registration_success">Your device has been registered to our service successfully.</string>
+    <string name="gcm_registration_failure">Your device has not been registered to our service please restart the app after some time.</string>
     <string name="newMessage">You have a new notification.</string>
     <string name="newMessage_broadcast">new_post_broadcast</string>
 

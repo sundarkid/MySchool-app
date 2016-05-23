@@ -14,6 +14,8 @@ public class UrlLinkNames {
     private static String JSON_URL = "url";
 
     private static String JSON_POST = "post";
+    private static String JSON_POSTS = "posts";
+    private static String JSON_PHOTOS = "photos";
     private static String JSON_PEOPLE = "people";
 
 
@@ -25,17 +27,58 @@ public class UrlLinkNames {
     private static String URL_GCM_TOKENS = "subscriptions.php";
 
     // Start of new Design
+    //private static String URL_BASE = "http://10.12.111.230/myschool/api/v1/app/";
+    //private static String URL_BASE = "http://192.168.56.1/myschool/api/v1/app/";
     private static String URL_BASE = "http://192.168.1.100/myschool/api/v1/app/";
     private static String URL_SUBSCRIPTIONS = "getSubscriptionList";
     private static String URL_GCM_REGISTER = "gcmRegister";
+    private static String URL_GET_ALL_DATA = "getAllData";
 
     private static String JSON_TOKEN = "token";
     private static String JSON_SCHOOLID = "schoolId";
     private static String JSON_RESULT = "result";
     private static String JSON_SUCCESS = "success";
     private static String JSON_FAILURE = "failure";
+    private static String JSON_UPDATE_DATE = "updateDate";
+    private static String JSON_UPDATE_TIME = "dateTime";
+    private static String JSON_EVENT_ID = "eventId";
+    private static String JSON_EVENT_NAME = "eventName";
+    private static String JSON_DESCRIPTION = "description";
+    private static String JSON_EVENT_DATE = "eventDate";
+    private static String JSON_EVENT_TIME = "eventTime";
 
+    private static String JSON_PHOTO_ID = "photoId";
+    private static String JSON_PHOTO_NAME = "photoName";
+    private static String JSON_LINK = "link";
+    private static String JSON_GALLERY_ID = "galleryId";
+
+    private static String SHARED_PREFERENCES_FILE = "mySharedPrefsFile";
     private static String SHARED_PREFERENCES_SCHOOL_TOKEN = "school_token";
+    private static String SHARED_PREFERENCES_SCHOOL_ID = "school_id";
+
+    public static String getJsonGalleryId() {
+        return JSON_GALLERY_ID;
+    }
+
+    public static String getJsonPhotos() {
+        return JSON_PHOTOS;
+    }
+
+    public static String getSharedPreferencesFile() {
+        return SHARED_PREFERENCES_FILE;
+    }
+
+    public static String getJsonLink() {
+        return JSON_LINK;
+    }
+
+    public static String getJsonPhotoId() {
+        return JSON_PHOTO_ID;
+    }
+
+    public static String getJsonPhotoName() {
+        return JSON_PHOTO_NAME;
+    }
 
     public static String getUrlBase() {
         return URL_BASE;
@@ -57,8 +100,24 @@ public class UrlLinkNames {
         return SHARED_PREFERENCES_SCHOOL_TOKEN;
     }
 
+    public static String getJsonUpdateDate() {
+        return JSON_UPDATE_DATE;
+    }
+
+    public static String getJsonUpdateTime() {
+        return JSON_UPDATE_TIME;
+    }
+
+    public static String getSharedPreferencesSchoolId() {
+        return SHARED_PREFERENCES_SCHOOL_ID;
+    }
+
     public static String getUrlGcmRegister() {
         return getUrlBase() + URL_GCM_REGISTER;
+    }
+
+    public static String getUrlGetAllData() {
+        return getUrlBase() + URL_GET_ALL_DATA;
     }
 
     public static String getUrlGcmTokens() {
@@ -131,5 +190,29 @@ public class UrlLinkNames {
 
     public static String getJsonPost() {
         return JSON_POST;
+    }
+
+    public static String getJsonPosts() {
+        return JSON_POSTS;
+    }
+
+    public static String getJsonDescription() {
+        return JSON_DESCRIPTION;
+    }
+
+    public static String getJsonEventDate() {
+        return JSON_EVENT_DATE;
+    }
+
+    public static String getJsonEventId() {
+        return JSON_EVENT_ID;
+    }
+
+    public static String getJsonEventName() {
+        return JSON_EVENT_NAME;
+    }
+
+    public static String getJsonEventTime() {
+        return JSON_EVENT_TIME;
     }
 }

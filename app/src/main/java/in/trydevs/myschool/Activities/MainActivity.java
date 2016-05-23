@@ -141,8 +141,9 @@ public class MainActivity extends AppCompatActivity {
 
         //no inspection Simplifiable If Statement
         if (id == R.id.action_people_info) {
-            Intent intentPeople = new Intent(MainActivity.this, PeopleActivity.class);
-            startActivity(intentPeople);
+            Intent intentSubscription = new Intent(MainActivity.this, SubscriptionActivity.class);
+            startActivity(intentSubscription);
+            finish();
             return true;
         }
 

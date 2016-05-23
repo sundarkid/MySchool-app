@@ -17,7 +17,6 @@ import java.util.List;
 import in.trydevs.myschool.Activities.DetailedPost;
 import in.trydevs.myschool.DataClasses.Post;
 import in.trydevs.myschool.R;
-import in.trydevs.myschool.extras.TextViewSpannable;
 
 
 /**
@@ -92,7 +91,6 @@ public class MyAdapterPost extends RecyclerView.Adapter<MyAdapterPost.MyViewHold
             image = (ImageView) itemView.findViewById(R.id.imageView);
             name = (TextView) itemView.findViewById(R.id.name);
             message = (TextView) itemView.findViewById(R.id.message);
-            TextViewSpannable.makeTextViewResizable(message,3,TextViewSpannable.expandText,true);
             time = (TextView) itemView.findViewById(R.id.time);
             title = (TextView) itemView.findViewById(R.id.post_title);
             itemView.setOnClickListener(new View.OnClickListener() {

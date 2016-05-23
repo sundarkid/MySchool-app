@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_60dp"
+    android:background="@color/primary_dark"
     android:orientation="horizontal"
     android:padding="@dimen/_8dp">
 
@@ -14,6 +15,7 @@
         android:gravity="center"
         android:maxLines="2"
         android:text="@string/school_name"
-        android:textAppearance="?android:textAppearanceMedium" />
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@color/white" />
 
 </LinearLayout>

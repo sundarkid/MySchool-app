@@ -1,9 +1,9 @@
 package in.trydevs.myschool.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -55,7 +54,7 @@ public class SubscriptionActivity extends AppCompatActivity {
         requestQueue = VolleySingleton.getInstance().getmRequestQueue();
 
         // opening Shared Preferences file
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = getSharedPreferences(UrlLinkNames.getSharedPreferencesFile(), Context.MODE_PRIVATE);
 
         // Getting data from server
         CustomRequest request = new CustomRequest(GET, UrlLinkNames.getUrlSubscriptions(), null, new Response.Listener<JSONObject>() {
@@ -67,10 +66,12 @@ public class SubscriptionActivity extends AppCompatActivity {
                 adapter = new MyAdapterSubscription(SubscriptionActivity.this, data, new ListItemClickListener() {
                     @Override
                     public void OnListItemClick(Subscription subscription) {
-                        Toast.makeText(SubscriptionActivity.this, subscription.getName(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(SubscriptionActivity.this, subscription.getSchoolId(), Toast.LENGTH_SHORT).show();
                         sharedPreferences.edit().putString(UrlLinkNames.getSharedPreferencesSchoolToken(), subscription.getToken()).apply();
+                        sharedPreferences.edit().putInt(UrlLinkNames.getSharedPreferencesSchoolId(), Integer.parseInt(subscription.getSchoolId())).apply();
                         Intent intent = new Intent(SubscriptionActivity.this, MainActivity.class);
                         startActivity(intent);
+                        finish();
                     }
                 });
                 recyclerView.setAdapter(adapter);
@@ -78,8 +79,9 @@ public class SubscriptionActivity extends AppCompatActivity {
                 // Showing the recycler view
                 layout.setVisibility(View.VISIBLE);
                 // Logging the process data
+
                 Log.d("SubscriptionList", response.toString());
-                Log.d("size", data.size() + "");
+                // Log.d("size", data.size() + "");
             }
         }, new Response.ErrorListener() {
             @Override

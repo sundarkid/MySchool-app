@@ -40,15 +40,15 @@ public class Decoder {
 
                         subscription.setName(child.getString(UrlLinkNames.getJsonName()));
                         subscription.setToken(child.getString(UrlLinkNames.getJsonToken()));
-                        subscription.setSchoolId(UrlLinkNames.getJsonSchoolid());
+                        subscription.setSchoolId(child.getString(UrlLinkNames.getJsonSchoolid()));
 
                         data.add(subscription);
                     }
                 } else {
-                    Log.d("Decode Sub result", json.toString());
+                    Log.d("Decode Subscr result", json.toString());
                 }
             } else {
-                Log.d("Decode sub no result", json.toString());
+                Log.d("Decode subscr no result", json.toString());
             }
         } catch (JSONException e) {
             Log.d("decode subscription", json.toString());
@@ -75,6 +75,26 @@ public class Decoder {
             }
         } catch (JSONException e) {
             Log.d("decode post", json);
+            e.printStackTrace();
+        }
+        MyApplication.getWritableDatabase().insertPostData(posts);
+        return posts;
+    }
+
+    public static List<Post> decodePost(JSONArray array) {
+        List<Post> posts = Collections.emptyList();
+        try {
+            if (array.length() > 0) {
+                posts = new ArrayList<>();
+                // Getting posts if we have any
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject objectPost = array.getJSONObject(i);
+                    Post post = Post.fromJSON(objectPost);
+                    posts.add(post);
+                }
+            }
+        } catch (JSONException e) {
+            Log.d("decode post", array.toString());
             e.printStackTrace();
         }
         MyApplication.getWritableDatabase().insertPostData(posts);
@@ -124,4 +144,24 @@ public class Decoder {
         }
         return images;
     }
+
+    public static List<Image> decodeImage(JSONArray array) {
+        List<Image> images = Collections.emptyList();
+        try {
+            if (array.length() > 0) {
+                images = new ArrayList<>();
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject objectImage = array.getJSONObject(i);
+                    Image image = Image.getImageFromJSON(objectImage);
+                    images.add(image);
+                }
+                MyApplication.getWritableDatabase().insertImageData(images);
+            }
+        } catch (JSONException e) {
+            Log.d("Decoder images", array.toString());
+            e.printStackTrace();
+        }
+        return images;
+    }
+
 }

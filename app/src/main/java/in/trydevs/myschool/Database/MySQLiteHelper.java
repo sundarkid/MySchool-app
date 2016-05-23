@@ -23,30 +23,43 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PHONE = "phone";
     public static final String COLUMN_MAIL = "mail";
 
-    public static final String COLUMN_POST_ID = "post_id";
+    public static final String COLUMN_UPDATE_TIME = "updateTime";
+    public static final String COLUMN_UPDATE_DATE = "updateDate";
+
+    public static final String COLUMN_SCHOOL_ID = "school_id";
+
+
+    public static final String COLUMN_EVENT_ID = "event_id";
     public static final String COLUMN_DATE = "date";
     public static final String COLUMN_MESSAGE = "message";
     public static final String COLUMN_IMAGE = "image";
     public static final String COLUMN_URL = "url";
+
+    public static final String COLUMN_IMAGE_ID = "image_id";
+
+    public static final String COLUMN_GALLERY_ID = "gallery_id";
 
     public static final String COLUMN_PEOPLE_ID = "people_id";
     public static final String COLUMN_ABOUT = "message";
     public static final String COLUMN_FACEBOOK_URL = "url_fb";
     public static final String COLUMN_TWITTER_URL = "url_tweet";
 
-    private static final String DB_NAME = "tknow";
+    private static final String DB_NAME = "myschool";
     private static final int DB_VERSION = 1;
 
     private static final String CREATE_TABLE_POSTS = "CREATE TABLE " + TABLE_POST + " ( " +
             COLUMN_SNO + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_USER_ID + " INTEGER, " +
-            COLUMN_POST_ID + " INTEGER UNIQUE, " +
+            COLUMN_EVENT_ID + " INTEGER, " +
+            COLUMN_SCHOOL_ID + " INTEGER, " +
             COLUMN_NAME + " TEXT, " +
             COLUMN_TITLE + " TEXT, " +
             COLUMN_MESSAGE + " TEXT, " +
             COLUMN_IMAGE + " TEXT, " +
             COLUMN_DATE + " TEXT, " +
             COLUMN_URL + " TEXT " +
+            COLUMN_UPDATE_DATE + " TEXT " +
+            COLUMN_UPDATE_TIME + " TEXT " +
             ");";
 
     private static final String CREATE_TABLE_PEOPLE = "CREATE TABLE " + TABLE_PEOPLE + " ( " +
@@ -57,10 +70,17 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             COLUMN_FACEBOOK_URL + " TEXT, " +
             COLUMN_TWITTER_URL + " TEXT " +
             ");";
+
     private static final String CREATE_TABLE_IMAGE = "CREATE TABLE " + TABLE_IMAGE + " ( " +
-            COLUMN_SNO + " INTEGER , " +
+            COLUMN_SNO + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_IMAGE_ID + " INTEGER, " +
+            COLUMN_SCHOOL_ID + " INTEGER, " +
             COLUMN_IMAGE + " TEXT, " +
             COLUMN_TITLE + " TEXT " +
+            COLUMN_GALLERY_ID + " INTEGER " +
+            COLUMN_UPDATE_TIME + " TEXT " +
+            COLUMN_UPDATE_DATE + " TEXT " +
+            COLUMN_EVENT_ID + " INTEGER  " +
             ");";
 
     private Context context;

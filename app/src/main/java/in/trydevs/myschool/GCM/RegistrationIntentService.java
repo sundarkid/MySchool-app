@@ -19,7 +19,6 @@ package in.trydevs.myschool.GCM;
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -32,12 +31,16 @@ import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
+import in.trydevs.myschool.DataClasses.Image;
+import in.trydevs.myschool.DataClasses.Post;
 import in.trydevs.myschool.DataClasses.UrlLinkNames;
 import in.trydevs.myschool.Network.CustomRequest;
 import in.trydevs.myschool.Network.VolleySingleton;
@@ -51,6 +54,7 @@ public class RegistrationIntentService extends IntentService {
 
     private static final String TAG = "RegIntentService";
     private final String[] TOPICS = {""};
+    private final int[] SCHOOL_ID = {0};
     SharedPreferences sharedPreferences;
 
     public RegistrationIntentService() {
@@ -59,7 +63,7 @@ public class RegistrationIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = getSharedPreferences(UrlLinkNames.getSharedPreferencesFile(), MODE_PRIVATE);
 
         try {
             // In the (unlikely) event that multiple refresh operations occur simultaneously,
@@ -74,16 +78,24 @@ public class RegistrationIntentService extends IntentService {
                         GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
                 // [END get_token]
                 Log.i(TAG, "GCM Registration Token: " + token);
+
+                // Sending token to server for storage
+                sendRegistrationToServer(token);
+
+
                 // TODO GET data from shared preference and assign it to TOPICS[0]
                 TOPICS[0] = sharedPreferences.getString(UrlLinkNames.getSharedPreferencesSchoolToken(), "");
+                SCHOOL_ID[0] = sharedPreferences.getInt(UrlLinkNames.getSharedPreferencesSchoolId(), 0);
                 if (!TOPICS[0].equalsIgnoreCase("")) {
                     boolean sentToken = sharedPreferences
                             .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
-                    if (!sentToken)
+                    Log.d(TAG, sentToken + "");
+                    if (!sentToken) {
+                        // Sending token to server for storage
                         sendRegistrationToServer(token);
-
+                    }
                     // Subscribe to topic channels
-                    subscribeTopics(token);
+                    //subscribeTopics(token);
 
                     // You should store a boolean that indicates whether the generated token has been
                     // sent to your server. If the boolean is false, send the token to your server,
@@ -111,15 +123,21 @@ public class RegistrationIntentService extends IntentService {
         // Add custom implementation, as needed.
         RequestQueue requestQueue = VolleySingleton.getInstance().getmRequestQueue();
         HashMap<String, String> params = new HashMap<>();
-        params.put("token", token);
+
+        //params.put(UrlLinkNames.getJsonToken(), token);
+        params.put(UrlLinkNames.getJsonSchoolid(), Integer.toString(SCHOOL_ID[0]));
+        params.put(UrlLinkNames.getJsonToken(), TOPICS[0]);
+
+        Log.d(TAG, params.toString());
+
         final CustomRequest request = new CustomRequest(POST, UrlLinkNames.getUrlGcmRegister(), params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("registration response", response.toString());
+                Log.d(TAG, response.toString());
                 try {
                     if (response.has(UrlLinkNames.getJsonResult()))
-                        if (response.getString(UrlLinkNames.getJsonResult()).equalsIgnoreCase(UrlLinkNames.getJsonSuccess()))
-                            Toast.makeText(MyApplication.getAppContext(), getResources().getString(R.string.gcm_registeration_success), Toast.LENGTH_LONG).show();
+                        if (response.getString(UrlLinkNames.getJsonResult()).equalsIgnoreCase(UrlLinkNames.getJsonSuccess())) {
+                            Toast.makeText(MyApplication.getAppContext(), getResources().getString(R.string.gcm_registration_success), Toast.LENGTH_LONG).show();
                    /*
                    if (response.has(UrlLinkNames.getJsonPeople())) {
                         JSONArray jsonArray = response.getJSONArray(UrlLinkNames.getJsonPeople());
@@ -132,30 +150,32 @@ public class RegistrationIntentService extends IntentService {
                         }
                         MyApplication.getWritableDatabase().insertPeopleData(peoples);
                     }
-                    if (response.has(UrlLinkNames.getJsonPost())) {
-                        List<Post> posts = Collections.emptyList();
-                        // Getting posts if we have any
-                        JSONArray jsonArrayPost = new JSONArray(response.getString(UrlLinkNames.getJsonPost()));
-                        posts = new ArrayList<>();
-                        for (int i = 0; i < jsonArrayPost.length(); i++) {
-                            JSONObject objectPost = jsonArrayPost.getJSONObject(i);
-                            Post post = Post.fromJSON(objectPost);
-                            posts.add(post);
-                        }
-                        MyApplication.getWritableDatabase().insertPostData(posts);
-                    }
+
                     */
+                            if (response.has(UrlLinkNames.getJsonPosts())) {
+                                // Getting posts if we have any
+                                JSONArray jsonArrayPost = new JSONArray(response.getString(UrlLinkNames.getJsonPosts()));
+                                List<Post> posts = Decoder.decodePost(jsonArrayPost);
+                                MyApplication.getWritableDatabase().insertPostData(posts);
+                            }
+                            if (response.has(UrlLinkNames.getJsonPhotos())) {
+                                // Getting Images if any
+                                String s = response.getString(UrlLinkNames.getJsonPhotos());
+                                JSONArray jsonArray = new JSONArray(s);
+                                List<Image> results = Decoder.decodeImage(jsonArray);
+                                if (results.size() > 0)
+                                    MyApplication.getWritableDatabase().insertImageData(results);
+                            }
 
+                            Decoder.decodePost(response.toString());
+                            Decoder.decodePeople(response.toString());
+                            Decoder.decodeImage(response.toString());
 
-                    Decoder.decodePost(response.toString());
-                    Decoder.decodePeople(response.toString());
-                    Decoder.decodeImage(response.toString());
-
-                    sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, true).apply();
-                    // Notify UI that registration has completed, so the progress indicator can be hidden.
-                    Intent registrationComplete = new Intent(QuickstartPreferences.REGISTRATION_COMPLETE);
-                    LocalBroadcastManager.getInstance(RegistrationIntentService.this).sendBroadcast(registrationComplete);
-
+                            sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, true).apply();
+                            // Notify UI that registration has completed, so the progress indicator can be hidden.
+                            Intent registrationComplete = new Intent(QuickstartPreferences.REGISTRATION_COMPLETE);
+                            LocalBroadcastManager.getInstance(RegistrationIntentService.this).sendBroadcast(registrationComplete);
+                        }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -182,7 +202,7 @@ public class RegistrationIntentService extends IntentService {
     private void subscribeTopics(String token) throws IOException {
         for (String topic : TOPICS) {
             GcmPubSub pubSub = GcmPubSub.getInstance(this);
-            pubSub.subscribe(token, "/topic/" + topic, null);
+            pubSub.subscribe(token, "/topics/" + topic, null);
         }
     }
     // [END subscribe_topics]

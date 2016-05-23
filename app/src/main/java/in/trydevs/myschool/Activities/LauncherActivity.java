@@ -17,7 +17,7 @@ public class LauncherActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(3000,0);
+                    Thread.sleep(3, 0);
                     Intent intent = new Intent(LauncherActivity.this, SubscriptionActivity.class);
                     startActivity(intent);
                     finish();
